@@ -71,6 +71,8 @@ namespace GitHubApi
       GetWindowValue();
       LoadLanguages();
       SetLanguage(Settings.Default.LastLanguageUsed);
+      SetButtonEnabled(buttonAuthenticate, textBoxUserName, textBoxPassword);
+      SetButtonEnabled(buttonUrlNavigate, textBoxUrl);
     }
 
     private void LoadConfigurationOptions()
@@ -693,6 +695,21 @@ namespace GitHubApi
       }
 
       button.Enabled = result;
+    }
+
+    private void textBoxUserName_TextChanged(object sender, EventArgs e)
+    {
+      buttonAuthenticate.Enabled = textBoxUserName.Text.Length != 0;
+    }
+
+    private void textBoxPassword_TextChanged(object sender, EventArgs e)
+    {
+      buttonAuthenticate.Enabled = textBoxPassword.Text.Length != 0;
+    }
+
+    private void textBoxUrl_TextChanged(object sender, EventArgs e)
+    {
+      buttonUrlNavigate.Enabled = textBoxUrl.Text.Length != 0;
     }
   }
 }

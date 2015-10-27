@@ -65,6 +65,14 @@
       this.searchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
       this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.labelUserName = new System.Windows.Forms.Label();
+      this.textBoxUserName = new System.Windows.Forms.TextBox();
+      this.webBrowserResult = new System.Windows.Forms.WebBrowser();
+      this.textBoxUrl = new System.Windows.Forms.TextBox();
+      this.buttonUrlNavigate = new System.Windows.Forms.Button();
+      this.textBoxPassword = new System.Windows.Forms.TextBox();
+      this.labelPassword = new System.Windows.Forms.Label();
+      this.buttonAuthenticate = new System.Windows.Forms.Button();
       this.menuStrip1.SuspendLayout();
       this.SuspendLayout();
       // 
@@ -364,11 +372,94 @@
       this.aboutToolStripMenuItem.Text = "À &propos de...";
       this.aboutToolStripMenuItem.Click += new System.EventHandler(this.AboutToolStripMenuItem_Click);
       // 
+      // labelUserName
+      // 
+      this.labelUserName.AutoSize = true;
+      this.labelUserName.Location = new System.Drawing.Point(21, 82);
+      this.labelUserName.Name = "labelUserName";
+      this.labelUserName.Size = new System.Drawing.Size(83, 17);
+      this.labelUserName.TabIndex = 3;
+      this.labelUserName.Text = "User Name:";
+      // 
+      // textBoxUserName
+      // 
+      this.textBoxUserName.Location = new System.Drawing.Point(110, 82);
+      this.textBoxUserName.Name = "textBoxUserName";
+      this.textBoxUserName.Size = new System.Drawing.Size(136, 22);
+      this.textBoxUserName.TabIndex = 4;
+      this.textBoxUserName.Text = "fredatgithub";
+      this.textBoxUserName.TextChanged += new System.EventHandler(this.textBoxUserName_TextChanged);
+      // 
+      // webBrowserResult
+      // 
+      this.webBrowserResult.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+      this.webBrowserResult.Location = new System.Drawing.Point(24, 185);
+      this.webBrowserResult.MinimumSize = new System.Drawing.Size(20, 20);
+      this.webBrowserResult.Name = "webBrowserResult";
+      this.webBrowserResult.Size = new System.Drawing.Size(861, 326);
+      this.webBrowserResult.TabIndex = 5;
+      // 
+      // textBoxUrl
+      // 
+      this.textBoxUrl.Location = new System.Drawing.Point(24, 146);
+      this.textBoxUrl.Name = "textBoxUrl";
+      this.textBoxUrl.Size = new System.Drawing.Size(763, 22);
+      this.textBoxUrl.TabIndex = 6;
+      this.textBoxUrl.Text = "https://api.github.com/";
+      this.textBoxUrl.TextChanged += new System.EventHandler(this.textBoxUrl_TextChanged);
+      // 
+      // buttonUrlNavigate
+      // 
+      this.buttonUrlNavigate.Location = new System.Drawing.Point(793, 145);
+      this.buttonUrlNavigate.Name = "buttonUrlNavigate";
+      this.buttonUrlNavigate.Size = new System.Drawing.Size(66, 23);
+      this.buttonUrlNavigate.TabIndex = 7;
+      this.buttonUrlNavigate.Text = "GO";
+      this.buttonUrlNavigate.UseVisualStyleBackColor = true;
+      // 
+      // textBoxPassword
+      // 
+      this.textBoxPassword.Location = new System.Drawing.Point(110, 115);
+      this.textBoxPassword.Name = "textBoxPassword";
+      this.textBoxPassword.PasswordChar = '*';
+      this.textBoxPassword.Size = new System.Drawing.Size(136, 22);
+      this.textBoxPassword.TabIndex = 9;
+      this.textBoxPassword.Text = "fredatgithub";
+      this.textBoxPassword.TextChanged += new System.EventHandler(this.textBoxPassword_TextChanged);
+      // 
+      // labelPassword
+      // 
+      this.labelPassword.AutoSize = true;
+      this.labelPassword.Location = new System.Drawing.Point(21, 115);
+      this.labelPassword.Name = "labelPassword";
+      this.labelPassword.Size = new System.Drawing.Size(73, 17);
+      this.labelPassword.TabIndex = 8;
+      this.labelPassword.Text = "Password:";
+      // 
+      // buttonAuthenticate
+      // 
+      this.buttonAuthenticate.Location = new System.Drawing.Point(278, 115);
+      this.buttonAuthenticate.Name = "buttonAuthenticate";
+      this.buttonAuthenticate.Size = new System.Drawing.Size(114, 23);
+      this.buttonAuthenticate.TabIndex = 10;
+      this.buttonAuthenticate.Text = "Authenticate";
+      this.buttonAuthenticate.UseVisualStyleBackColor = true;
+      // 
       // FormMain
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.ClientSize = new System.Drawing.Size(911, 534);
+      this.Controls.Add(this.buttonAuthenticate);
+      this.Controls.Add(this.textBoxPassword);
+      this.Controls.Add(this.labelPassword);
+      this.Controls.Add(this.buttonUrlNavigate);
+      this.Controls.Add(this.textBoxUrl);
+      this.Controls.Add(this.webBrowserResult);
+      this.Controls.Add(this.textBoxUserName);
+      this.Controls.Add(this.labelUserName);
       this.Controls.Add(this.menuStrip1);
       this.MainMenuStrip = this.menuStrip1;
       this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -423,5 +514,13 @@
     private System.Windows.Forms.ToolStripMenuItem SmallToolStripMenuItem;
     private System.Windows.Forms.ToolStripMenuItem MediumToolStripMenuItem;
     private System.Windows.Forms.ToolStripMenuItem LargeToolStripMenuItem;
+    private System.Windows.Forms.Label labelUserName;
+    private System.Windows.Forms.TextBox textBoxUserName;
+    private System.Windows.Forms.WebBrowser webBrowserResult;
+    private System.Windows.Forms.TextBox textBoxUrl;
+    private System.Windows.Forms.Button buttonUrlNavigate;
+    private System.Windows.Forms.TextBox textBoxPassword;
+    private System.Windows.Forms.Label labelPassword;
+    private System.Windows.Forms.Button buttonAuthenticate;
   }
 }
