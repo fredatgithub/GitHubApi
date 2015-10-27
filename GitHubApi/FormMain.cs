@@ -22,6 +22,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Reflection;
 using System.Windows.Forms;
 using System.Xml.Linq;
@@ -102,7 +103,8 @@ namespace GitHubApi
       }
       catch (Exception exception)
       {
-        MessageBox.Show("Error while loading xml file " + exception);
+        MessageBox.Show("Error while loading the " + Settings.Default.LanguageFileName +
+          " xml file " + exception.Message);
         CreateLanguageFile();
         return;
       }
@@ -297,6 +299,8 @@ namespace GitHubApi
       Left = Settings.Default.WindowLeft < 0 ? 0 : Settings.Default.WindowLeft;
       SetDisplayOption(Settings.Default.DisplayToolStripMenuItem);
       LoadConfigurationOptions();
+      textBoxUserName.Text = Settings.Default.textBoxUserName;
+      textBoxUrl.Text = Settings.Default.textBoxUrl;
     }
 
     private void SaveWindowValue()
@@ -307,6 +311,8 @@ namespace GitHubApi
       Settings.Default.WindowTop = Top;
       Settings.Default.LastLanguageUsed = frenchToolStripMenuItem.Checked ? "French" : "English";
       Settings.Default.DisplayToolStripMenuItem = GetDisplayOption();
+      Settings.Default.textBoxUserName = textBoxUserName.Text;
+      Settings.Default.textBoxUrl = textBoxUrl.Text;
       SaveConfigurationOptions();
       Settings.Default.Save();
     }
@@ -457,7 +463,10 @@ namespace GitHubApi
 
     private void cutToolStripMenuItem_Click(object sender, EventArgs e)
     {
-      Control focusedControl = FindFocusedControl(new List<Control> { }); // add your controls in the List
+      Control focusedControl = FindFocusedControl(new List<Control>
+      {
+        textBoxUserName, textBoxUrl
+      }); 
       var tb = focusedControl as TextBox;
       if (tb != null)
       {
@@ -467,7 +476,10 @@ namespace GitHubApi
 
     private void copyToolStripMenuItem_Click(object sender, EventArgs e)
     {
-      Control focusedControl = FindFocusedControl(new List<Control> { }); // add your controls in the List
+      Control focusedControl = FindFocusedControl(new List<Control>
+      {
+        textBoxUserName, textBoxUrl
+      }); 
       var tb = focusedControl as TextBox;
       if (tb != null)
       {
@@ -477,7 +489,10 @@ namespace GitHubApi
 
     private void pasteToolStripMenuItem_Click(object sender, EventArgs e)
     {
-      Control focusedControl = FindFocusedControl(new List<Control> { }); // add your controls in the List
+      Control focusedControl = FindFocusedControl(new List<Control>
+      {
+        textBoxUserName, textBoxUrl
+      });
       var tb = focusedControl as TextBox;
       if (tb != null)
       {
@@ -487,7 +502,10 @@ namespace GitHubApi
 
     private void selectAllToolStripMenuItem_Click(object sender, EventArgs e)
     {
-      Control focusedControl = FindFocusedControl(new List<Control> { }); // add your controls in the List
+      Control focusedControl = FindFocusedControl(new List<Control>
+      {
+        textBoxUserName, textBoxUrl
+      }); 
       TextBox control = focusedControl as TextBox;
       if (control != null) control.SelectAll();
     }
@@ -710,6 +728,65 @@ namespace GitHubApi
     private void textBoxUrl_TextChanged(object sender, EventArgs e)
     {
       buttonUrlNavigate.Enabled = textBoxUrl.Text.Length != 0;
+    }
+
+    private void buttonUrlNavigate_Click(object sender, EventArgs e)
+    {
+      buttonUrlNavigate.Enabled = false;
+      Application.DoEvents();
+      //Navigate(textBoxUrl.Text);
+      HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create(textBoxUrl.Text);
+      httpWebRequest.ContentType = "application/json; charset=utf-8";
+      HttpWebResponse httpWResp;
+      try
+      {
+        httpWResp = (HttpWebResponse) httpWebRequest.GetResponse();
+        var text = string.Empty;
+        using (var sr = new StreamReader(httpWResp.GetResponseStream()))
+        {
+          text = sr.ReadToEnd();
+        }
+
+        textBoxResult.Text += text;
+      }
+      catch (Exception exception)
+      {
+        MessageBox.Show("error while accessing to url " + exception.Message);
+      }
+      finally
+      {
+        //if (httpWResp != null) httpWResp.Close();
+      }
+
+      buttonUrlNavigate.Enabled = true;
+      MessageBox.Show("http request is over");
+    }
+
+    private void Navigate(string address)
+    {
+      if (string.IsNullOrEmpty(address)) return;
+      if (address.Equals("about:blank")) return;
+      if (!address.StartsWith("http://") &&
+          !address.StartsWith("https://"))
+      {
+        address = "https://" + address;
+      }
+      try
+      {
+        webBrowserResult.Navigate(new Uri(address));
+      }
+      catch (UriFormatException)
+      {
+        return;
+      }
+    }
+
+    private void textBoxUrl_KeyDown(object sender, KeyEventArgs e)
+    {
+      if (e.KeyCode == Keys.Enter)
+      {
+        Navigate(textBoxUrl.Text);
+      }
     }
   }
 }

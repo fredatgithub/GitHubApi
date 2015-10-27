@@ -73,6 +73,8 @@
       this.textBoxPassword = new System.Windows.Forms.TextBox();
       this.labelPassword = new System.Windows.Forms.Label();
       this.buttonAuthenticate = new System.Windows.Forms.Button();
+      this.labelUrl = new System.Windows.Forms.Label();
+      this.textBoxResult = new System.Windows.Forms.TextBox();
       this.menuStrip1.SuspendLayout();
       this.SuspendLayout();
       // 
@@ -392,23 +394,23 @@
       // 
       // webBrowserResult
       // 
-      this.webBrowserResult.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+      this.webBrowserResult.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
       this.webBrowserResult.Location = new System.Drawing.Point(24, 185);
       this.webBrowserResult.MinimumSize = new System.Drawing.Size(20, 20);
       this.webBrowserResult.Name = "webBrowserResult";
-      this.webBrowserResult.Size = new System.Drawing.Size(861, 326);
+      this.webBrowserResult.Size = new System.Drawing.Size(439, 326);
       this.webBrowserResult.TabIndex = 5;
       // 
       // textBoxUrl
       // 
-      this.textBoxUrl.Location = new System.Drawing.Point(24, 146);
+      this.textBoxUrl.Location = new System.Drawing.Point(110, 146);
       this.textBoxUrl.Name = "textBoxUrl";
-      this.textBoxUrl.Size = new System.Drawing.Size(763, 22);
+      this.textBoxUrl.Size = new System.Drawing.Size(677, 22);
       this.textBoxUrl.TabIndex = 6;
       this.textBoxUrl.Text = "https://api.github.com/";
       this.textBoxUrl.TextChanged += new System.EventHandler(this.textBoxUrl_TextChanged);
+      this.textBoxUrl.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxUrl_KeyDown);
       // 
       // buttonUrlNavigate
       // 
@@ -418,6 +420,7 @@
       this.buttonUrlNavigate.TabIndex = 7;
       this.buttonUrlNavigate.Text = "GO";
       this.buttonUrlNavigate.UseVisualStyleBackColor = true;
+      this.buttonUrlNavigate.Click += new System.EventHandler(this.buttonUrlNavigate_Click);
       // 
       // textBoxPassword
       // 
@@ -444,14 +447,36 @@
       this.buttonAuthenticate.Name = "buttonAuthenticate";
       this.buttonAuthenticate.Size = new System.Drawing.Size(114, 23);
       this.buttonAuthenticate.TabIndex = 10;
-      this.buttonAuthenticate.Text = "Authenticate";
+      this.buttonAuthenticate.Text = "Authentication";
       this.buttonAuthenticate.UseVisualStyleBackColor = true;
+      // 
+      // labelUrl
+      // 
+      this.labelUrl.AutoSize = true;
+      this.labelUrl.Location = new System.Drawing.Point(21, 151);
+      this.labelUrl.Name = "labelUrl";
+      this.labelUrl.Size = new System.Drawing.Size(40, 17);
+      this.labelUrl.TabIndex = 11;
+      this.labelUrl.Text = "URL:";
+      // 
+      // textBoxResult
+      // 
+      this.textBoxResult.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+      this.textBoxResult.Location = new System.Drawing.Point(489, 185);
+      this.textBoxResult.Multiline = true;
+      this.textBoxResult.Name = "textBoxResult";
+      this.textBoxResult.Size = new System.Drawing.Size(410, 326);
+      this.textBoxResult.TabIndex = 12;
       // 
       // FormMain
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.ClientSize = new System.Drawing.Size(911, 534);
+      this.Controls.Add(this.textBoxResult);
+      this.Controls.Add(this.labelUrl);
       this.Controls.Add(this.buttonAuthenticate);
       this.Controls.Add(this.textBoxPassword);
       this.Controls.Add(this.labelPassword);
@@ -522,5 +547,7 @@
     private System.Windows.Forms.TextBox textBoxPassword;
     private System.Windows.Forms.Label labelPassword;
     private System.Windows.Forms.Button buttonAuthenticate;
+    private System.Windows.Forms.Label labelUrl;
+    private System.Windows.Forms.TextBox textBoxResult;
   }
 }
