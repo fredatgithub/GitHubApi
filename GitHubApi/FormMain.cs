@@ -735,31 +735,49 @@ namespace GitHubApi
       buttonUrlNavigate.Enabled = false;
       Application.DoEvents();
       //Navigate(textBoxUrl.Text);
-      HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create(textBoxUrl.Text);
-      httpWebRequest.ContentType = "application/json; charset=utf-8";
-      HttpWebResponse httpWResp;
+      WebClient wc = new WebClient();
+      wc.Credentials = new NetworkCredential("username", "password");
+      string url = "https://api.github.com";
       try
       {
-        httpWResp = (HttpWebResponse) httpWebRequest.GetResponse();
-        var text = string.Empty;
-        using (var sr = new StreamReader(httpWResp.GetResponseStream()))
+        using (Stream stream = wc.OpenRead(new Uri(url)))
         {
-          text = sr.ReadToEnd();
+          using (StreamReader reader = new StreamReader(stream))
+          {
+            textBoxResult.Text += reader.ReadToEnd();
+          }
         }
+      }
+      catch (WebException exception)
+      {
+        MessageBox.Show("error while connecting " + exception);
+      }
 
-        textBoxResult.Text += text;
-      }
-      catch (Exception exception)
-      {
-        MessageBox.Show("error while accessing to url " + exception.Message);
-      }
-      finally
-      {
-        //if (httpWResp != null) httpWResp.Close();
-      }
+      //HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create(textBoxUrl.Text);
+      //httpWebRequest.ContentType = "application/json; charset=utf-8";
+      //HttpWebResponse httpWResp;
+      //try
+      //{
+      //  httpWResp = (HttpWebResponse) httpWebRequest.GetResponse();
+      //  var text = string.Empty;
+      //  using (var sr = new StreamReader(httpWResp.GetResponseStream()))
+      //  {
+      //    text = sr.ReadToEnd();
+      //  }
+
+      //  textBoxResult.Text += text;
+      //}
+      //catch (Exception exception)
+      //{
+      //  MessageBox.Show("error while accessing to url " + exception.Message);
+      //}
+      //finally
+      //{
+      //  //if (httpWResp != null) httpWResp.Close();
+      //}
 
       buttonUrlNavigate.Enabled = true;
-      MessageBox.Show("http request is over");
+      //MessageBox.Show("http request is over");
     }
 
     private void Navigate(string address)
