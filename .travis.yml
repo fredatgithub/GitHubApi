@@ -1,0 +1,4 @@
+language: csharp
+solution: GitHubApi.sln
+notifications:
+  email: false
