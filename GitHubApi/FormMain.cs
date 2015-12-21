@@ -557,7 +557,7 @@ namespace GitHubApi
     {
       if (tb != ActiveControl) return;
       var selectionIndex = tb.SelectionStart;
-      tb.Text = tb.Text.Insert(selectionIndex, Clipboard.GetText());
+      tb.SelectedText = Clipboard.GetText();
       tb.SelectionStart = selectionIndex + Clipboard.GetText().Length;
     }
 
